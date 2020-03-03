@@ -1,0 +1,37 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="{% static "bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "bootstrap.min.css" %}">
+    <link rel="stylesheet" href="{% static "minigames.css" %}">
+    <title></title>
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+	<div class="col-12 col-sm-6 col-md-8">
+	  {% block rest %}
+	  {% if barrel.barrel_list|length > 30 %}
+	  <!--данную реализацию заменить на javascript-->
+	  <div class="gamego"></div>
+	  <p>{{ barrel.barrel_pop }}</p>
+	  <a href="{% url 'minigames:test' %}">Взять боченок</a>
+	    {% endif %}
+	  {% endblock%}
+	</div>
+	<div class="col-6 col-md-4">
+	  {% block menu %}
+	  {% endblock%}
+	</div>
+      </div>	  
+      {% block content  %}
+      {% endblock%}
+    </div>
+    <script src="{% static 'main.js' %}"></script>
+
+  </body>
+</html>
+

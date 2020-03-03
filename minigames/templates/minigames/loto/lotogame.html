@@ -1,0 +1,49 @@
+{% extends 'minigames/loto/base.html' %}
+{% block menu %}
+<div class="menuminigames">
+  <a href="{% url 'minigames:menu' 1  %}">Взять билет</a>
+  <a href="{% url 'minigames:menu' 2  %}">Начать игру</a>
+  <a href="{% url 'minigames:menu' 3  %}">Закончить игру</a>
+</div>
+
+{% endblock%}
+{% block content %}
+{% if ticket.ticket_list|length >= 1 %}
+<div class="lototicket">
+  {% for i in ticket.ticket_list|slice:":2" %}
+  {% autoescape off %}{% cycle 1 2 as num%}{% endautoescape %}
+  <div class="ticketrow1">
+    {% for j in i %}
+    <ul class="ticketcol">
+      {% for x in j %}
+      <li class="ticketnumber">
+	<a href="{% url 'minigames:chenge_ticket' x num %}">{{ x }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% if ticket.ticket_list|length >= 3 %}
+<div class="lototicketfour">
+  {% for i in ticket.ticket_list|slice:"2:" %}
+  {% autoescape off %}{% cycle 3 4 as num%}{% endautoescape %}
+  <div class="ticketrow2">
+    {% for j in i %}
+    <ul class="ticketcol">
+      {% for x in j %}
+      <li class="ticketnumber">
+	<a href="{% url 'minigames:chenge_ticket' x num %}">{{ x }}</a>
+      </li>
+      {% endfor %}
+    </ul>
+    {% endfor %}
+  </div>
+  {% endfor %}
+</div>
+{% endif %}
+
+{% endblock%}
